@@ -21,7 +21,8 @@ bot = telebot.TeleBot(os.environ['API_TOKEN'], allow_sending_without_reply=True)
 
 command = [telebot.types.BotCommand("start", "Help information"),
            telebot.types.BotCommand("help", "Help information"),
-           telebot.types.BotCommand("football", "/football 21.06 21:30 Матч Арена")]
+           telebot.types.BotCommand("football", "/football 21.06 21:30 Матч Арена"),
+           telebot.types.BotCommand("leaderboard", "Show current leaderboard")]
 
 bot.set_my_commands(command)
 
