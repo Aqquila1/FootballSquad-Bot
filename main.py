@@ -7,10 +7,10 @@ from datetime import datetime
 # Connect to DB
 con = psycopg2.connect(
    database="postgres",
-   user=os.environ['POSTGRES_USER'],
-   password=os.environ['POSTGRES_PASSWORD'],
-   host=os.environ['POSTGRES_HOST'],
-   port=os.environ['POSTGRES_PORT']
+   user=os.environ['PG_USER'],
+   password=os.environ['PG_PASSWORD'],
+   host=os.environ['PG_HOST'],
+   port=os.environ['PG_PORT']
 )
 
 cursor = con.cursor()
