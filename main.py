@@ -144,15 +144,19 @@ def send_start_gathering_football(message:telebot.types.Message):
 
 @bot.message_handler(commands=['leaderboard'])
 def send_leaderboard(message:telebot.types.Message):
-    leaderboard_export = get_leaderboard(message.chat.id)
-    message_txt = "Таблица лидеров:\n"
-    for i, leaderboard_export_row in enumerate(leaderboard_export):
-        chat_member = bot.get_chat_member(message.chat.id, leaderboard_export_row[0])
-        tg_first_name = chat_member.user.first_name if chat_member.user.first_name else ''
-        tg_last_name = chat_member.user.last_name if chat_member.user.last_name else ''
-        tg_nickname = '@' + chat_member.user.username
-        message_txt += "\n{0}. {1} {2}({3}): {4} points ({5} games)".format(i+1, tg_first_name, tg_last_name, tg_nickname, leaderboard_export_row[1], leaderboard_export_row[2])
-    bot.send_message(message.chat.id, message_txt)
+    try:
+        leaderboard_export = get_leaderboard(message.chat.id)
+        message_txt = "Таблица лидеров:\n"
+        for i, leaderboard_export_row in enumerate(leaderboard_export):
+            chat_member = bot.get_chat_member(message.chat.id, leaderboard_export_row[0])
+            tg_first_name = chat_member.user.first_name if chat_member.user.first_name else ''
+            tg_last_name = chat_member.user.last_name if chat_member.user.last_name else ''
+            tg_nickname = '@' + chat_member.user.username
+            message_txt += "\n{0}. {1} {2}({3}): {4} points ({5} games)".format(i+1, tg_first_name, tg_last_name, tg_nickname, leaderboard_export_row[1], leaderboard_export_row[2])
+        bot.send_message(message.chat.id, message_txt)
+    except Exception as e:
+        print(e)
+        bot.send_message(message.chat.id, 'Не удалось загрузить таблицу лидеров')
 
 
 def get_list_participants(game_id:int):
